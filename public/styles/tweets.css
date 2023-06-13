@@ -6,6 +6,10 @@
   border-style: solid;
 }
 
+.tweet:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
 footer {
   margin-top: 10px;
   display: flex;
@@ -28,6 +32,10 @@ footer {
 
 .tweet .actions {
   color: purple;
+}
+
+.tweet .actions i:hover {
+  color: red; /* Change the color to your desired hover color */
 }
 
 .user-info .top-left {
