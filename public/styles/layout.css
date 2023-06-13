@@ -10,10 +10,6 @@ html {
   box-sizing: inherit;
 }
 
-/*
- * Global layout stuff
- */
-
 body {
   color: #545149;
   background-color: #f4f1ec;
@@ -31,10 +27,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-color: #f4f1ec;
+  margin-bottom: 50px;
 }
-
-
-/*
- * Additional CSS can be defined below or in other CSS files, as per instructions
- */
