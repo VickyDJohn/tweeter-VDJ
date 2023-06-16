@@ -13,7 +13,7 @@ $(document).ready(function() {
           </div>
         </header>
         <div class="tweet-content">
-          <p><b>${tweet.content.text}</b></p>
+          <p>${escape(tweet.content.text)}</p>
         </div>
         <footer>
           <span class="timestamp">${timeago.format(tweet.created_at)}</span>
@@ -29,17 +29,22 @@ $(document).ready(function() {
   };
 
   const renderTweets = function(tweets) {
+    $('#tweets-container').empty();
+  
     for (const tweet of tweets) {
       const $tweet = createTweetElement(tweet);
-      $('.tweets').append($tweet);
+      $('#tweets-container').prepend($tweet);
     }
   };
+  
 
-  // Function to load tweets from the server
   const loadTweets = function() {
     $.ajax('/tweets', { method: 'GET' })
       .then(function(response) {
         renderTweets(response);
+      })
+      .catch(function(error) {
+        console.error('Error loading tweets:', error);
       });
   };
 
@@ -50,37 +55,40 @@ $(document).ready(function() {
 
     const $form = $(this);
     const $tweetContent = $form.find('textarea[name="text"]');
+    const $errorMessage = $form.find('.error-message');
 
-    // Clear any previous error messages
-    $('.error-message').remove();
+    $errorMessage.remove(); // Clear any previous error messages
 
     // Validation checks
     if ($tweetContent.val().trim() === '') {
-      displayError('Tweet content is required.');
+      const errorMessage = $('<p class="error-message">Tweet content cannot be empty</p>');
+      $form.append(errorMessage);
       return;
     }
 
     if ($tweetContent.val().length > 140) {
-      displayError('Tweet content exceeds the character limit of 140.');
+      const errorMessage = $('<p class="error-message">Tweet content exceeds the character limit</p>');
+      $form.append(errorMessage);
       return;
     }
 
     const formData = $form.serialize();
 
-    // Send POST request to the server
     $.post('/tweets', formData)
       .then(function(response) {
-        console.log('Tweet submitted:');
+        $tweetContent.val(''); // Clear the tweet content textarea
+        loadTweets(); // Fetch and render the updated tweets
       })
       .catch(function(error) {
         console.error('Error submitting tweet:', error);
       });
   });
 
-  // Function to display an error message
-  const displayError = function(message) {
-    const $errorMessage = $('<p>').addClass('error-message').text(message);
-    $('form').append($errorMessage);
-  };
-
 });
+
+// Function to escape special characters in HTML
+function escape(str) {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
