@@ -45,21 +45,42 @@ $(document).ready(function() {
 
   loadTweets();
 
-  // Event listener for form submission
   $('form').submit(function(event) {
     event.preventDefault();
 
-    const formData = $(this).serialize();
+    const $form = $(this);
+    const $tweetContent = $form.find('textarea[name="text"]');
+
+    // Clear any previous error messages
+    $('.error-message').remove();
+
+    // Validation checks
+    if ($tweetContent.val().trim() === '') {
+      displayError('Tweet content is required.');
+      return;
+    }
+
+    if ($tweetContent.val().length > 140) {
+      displayError('Tweet content exceeds the character limit of 140.');
+      return;
+    }
+
+    const formData = $form.serialize();
 
     // Send POST request to the server
     $.post('/tweets', formData)
       .then(function(response) {
-        console.log('Tweet submitted:', response);
-        loadTweets(); // Reload the tweets after a new tweet is submitted
+        console.log('Tweet submitted:');
       })
       .catch(function(error) {
         console.error('Error submitting tweet:', error);
       });
   });
+
+  // Function to display an error message
+  const displayError = function(message) {
+    const $errorMessage = $('<p>').addClass('error-message').text(message);
+    $('form').append($errorMessage);
+  };
 
 });
