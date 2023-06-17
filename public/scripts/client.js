@@ -6,10 +6,10 @@ $(document).ready(function() {
         <header>
           <div class="user-info">
             <div class="top-left">
-              <img src="${tweet.user.avatars}">
-              <h4>${tweet.user.name}</h4>
+              <img src="${escape(tweet.user.avatars)}">
+              <h4>${escape(tweet.user.name)}</h4>
             </div>
-            <h4>${tweet.user.handle}</h4>
+            <h4>${escape(tweet.user.handle)}</h4>
           </div>
         </header>
         <div class="tweet-content">
@@ -30,13 +30,12 @@ $(document).ready(function() {
 
   const renderTweets = function(tweets) {
     $('#tweets-container').empty();
-  
+
     for (const tweet of tweets) {
       const $tweet = createTweetElement(tweet);
       $('#tweets-container').prepend($tweet);
     }
   };
-  
 
   const loadTweets = function() {
     $.ajax('/tweets', { method: 'GET' })
@@ -55,20 +54,18 @@ $(document).ready(function() {
 
     const $form = $(this);
     const $tweetContent = $form.find('textarea[name="text"]');
-    const $errorMessage = $form.find('.error-message');
+    const $errorContainer = $('#error-message');
 
-    $errorMessage.remove(); // Clear any previous error messages
+    $errorContainer.slideUp(); // Slide up the error container
 
     // Validation checks
     if ($tweetContent.val().trim() === '') {
-      const errorMessage = $('<p class="error-message">Tweet content cannot be empty</p>');
-      $form.append(errorMessage);
+      $errorContainer.html('⚠️Tweet content cannot be empty').slideDown();
       return;
     }
 
     if ($tweetContent.val().length > 140) {
-      const errorMessage = $('<p class="error-message">Tweet content exceeds the character limit</p>');
-      $form.append(errorMessage);
+      $errorContainer.html('⚠️Tweet content exceeds the character limit').slideDown();
       return;
     }
 
@@ -76,15 +73,15 @@ $(document).ready(function() {
 
     $.post('/tweets', formData)
       .then(function(response) {
-        $tweetContent.val(''); // Clear the tweet content textarea
-        loadTweets(); // Fetch and render the updated tweets
+        $tweetContent.val('');
+        loadTweets();
       })
       .catch(function(error) {
         console.error('Error submitting tweet:', error);
       });
   });
-
 });
+
 
 // Function to escape special characters in HTML
 function escape(str) {
