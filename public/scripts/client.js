@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+// Function to create a new tweet element based on the tweet data
   const createTweetElement = function(tweet) {
     const $tweet = $(`
       <article class="tweet">
@@ -49,6 +49,7 @@ $(document).ready(function() {
 
   loadTweets();
 
+  // Form submission event handler
   $('form').submit(function(event) {
     event.preventDefault();
 
@@ -71,6 +72,7 @@ $(document).ready(function() {
 
     const formData = $form.serialize();
 
+    // POST request to submit the tweet
     $.post('/tweets', formData)
       .then(function(response) {
         $tweetContent.val('');

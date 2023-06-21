@@ -1,15 +1,16 @@
 /*
- * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
- * https://css-tricks.com/international-box-sizing-awareness-day/
- * Do not modify these two selectors, please
+ * The following selectors are not meant to be modified.
+ * They establish the box-sizing property for the entire HTML document.
+ * For more information, refer to the provided links.
  */
-html {
+ html {
   box-sizing: border-box;
 }
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
+/* Styling for the body */
 body {
   color: #545149;
   background-color: #f4f1ec;
@@ -17,10 +18,12 @@ body {
   font-family: "Source Sans 3", sans-serif;
 }
 
+/* Styling for the navigation span */
 nav span {
   font-family: "Bungee", sans-serif;
 }
 
+/* Styling for the main content */
 main {
   width: 90%;
   margin: auto;

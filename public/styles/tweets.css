@@ -1,15 +1,17 @@
+/* Styling for tweet container */
 .tweet {
-  width: 100%;
   padding: 10px;
   margin-top: 50px;
   background-color: transparent;
   border-style: solid;
 }
 
+/* Hover effect for tweet container */
 .tweet:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Styling for footer */
 footer {
   margin-top: 10px;
   display: flex;
@@ -17,12 +19,14 @@ footer {
   justify-content: space-between;
 }
 
+/* Styling for tweet content */
 .tweet-content {
   border-bottom: 3px solid black;
   display: flex;
   align-items: center;
 }
 
+/* Styling for user info section */
 .user-info {
   display: flex;
   flex-direction: row;
@@ -30,23 +34,38 @@ footer {
   align-items: center;
 }
 
+/* Styling for tweet actions */
 .tweet .actions {
   color: purple;
 }
 
+/* Hover effect for tweet actions */
 .tweet .actions i:hover {
-  color: red; /* Change the color to your desired hover color */
+  color: red;
 }
 
+/* Styling for top left section of user info */
 .user-info .top-left {
   display: flex;
   align-items: flex-start;
   justify-content: space-around;
 }
 
+/* Styling for user profile image in top left section */
 .user-info .top-left img {
   margin-top: 0;
   height: 80px;
   width: 80px;
   margin-right: 10px;
+}
+
+/* Styling for tweets container */
+#tweets-container {
+  width: 90%;
+}
+
+/* Styling for new tweet section */
+#new-tweet {
+  margin-top: 100px;
+  width: 93%;
 }
