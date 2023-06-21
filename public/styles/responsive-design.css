@@ -1,0 +1,13 @@
+@media screen and (min-width: 1024px) {
+  .body-column {
+    display: flex;
+  }
+
+  .profile-header {
+    width: 25%;
+  }
+
+  .container {
+    width: 75%;
+  }
+}
